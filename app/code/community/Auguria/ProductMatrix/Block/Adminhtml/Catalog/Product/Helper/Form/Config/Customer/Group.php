@@ -26,14 +26,14 @@ class Auguria_ProductMatrix_Block_Adminhtml_Catalog_Product_Helper_Form_Config_C
      */
     public function getElementHtml()
     {
-        $values = $this->getValues();
-        if ($values == '') {
-            $this->setValues($this->_getValueFromConfig());
+        $value = $this->getValue();
+        if ($value == '') {
+            $this->setValue($this->_getValueFromConfig());
         }
         $html = parent::getElementHtml();
 
         $htmlId   = 'use_config_' . $this->getHtmlId();
-        $checked  = ($values == '') ? ' checked="checked"' : '';
+        $checked  = ($value == '') ? ' checked="checked"' : '';
         $disabled = ($this->getReadonly()) ? ' disabled="disabled"' : '';
 
         $html .= '<input id="'.$htmlId.'" name="product['.$htmlId.']" '.$disabled.' value="1" ' . $checked;
