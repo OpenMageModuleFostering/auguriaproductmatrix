@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_ProductMatrix
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+
+<layout>
+
+    <!-- <adminhtml_catalog_product_configurable>
+        <reference name="product_tabs">
+            <action method="addTabAfter"><name>auguria_product_matrix</name><block>auguria_productmatrix/adminhtml_catalog_product_edit_tab_matrix</block><after>-</after></action>
+            <action method="bindShadowTabs"><first>auguria_product_matrix</first><second>configurable</second></action>
+        </reference>
+    </adminhtml_catalog_product_configurable> -->
+
+</layout>

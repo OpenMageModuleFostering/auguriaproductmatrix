@@ -1,0 +1,17 @@
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_Core
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+<config>
+    <tabs>
+        <auguria>
+            <label></label>
+            <sort_order>150</sort_order>
+            <class>auguria-tab</class>
+        </auguria>
+    </tabs>
+</config>

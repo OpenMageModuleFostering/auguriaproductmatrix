@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_ProductMatrix
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+<config>
+
+	<modules>
+		<Auguria_ProductMatrix>
+			<version>0.0.1</version>
+		</Auguria_ProductMatrix>
+	</modules>
+	
+	<global>
+        <resources>
+            <auguria_productmatrix_setup>
+                <setup>
+                    <module>Auguria_ProductMatrix</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </auguria_productmatrix_setup>
+        </resources>
+		<blocks>
+			<auguria_productmatrix>
+				<class>Auguria_ProductMatrix_Block</class>
+			</auguria_productmatrix>
+		</blocks>
+		<helpers>
+			<auguria_productmatrix>
+				<class>Auguria_ProductMatrix_Helper</class>
+			</auguria_productmatrix>
+		</helpers>
+		<models>
+            <auguria_productmatrix>
+                <class>Auguria_ProductMatrix_Model</class>
+            </auguria_productmatrix>
+        </models>
+	</global>
+	
+    <frontend>
+        <routers>
+            <auguria_productmatrix>
+                <use>standard</use>
+                <args>
+                    <module>Auguria_ProductMatrix</module>
+                    <frontName>matrix</frontName>
+                </args>
+            </auguria_productmatrix>
+        </routers>
+        <layout>
+            <updates>
+                <auguria_productmatrix>
+                    <file>auguria/product_matrix.xml</file>
+                </auguria_productmatrix>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Auguria_ProductMatrix>
+                    <files>
+                        <default>Auguria_ProductMatrix.csv</default>
+                    </files>
+                </Auguria_ProductMatrix>
+            </modules>
+        </translate>
+    </frontend>
+	
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <auguria_productmatrix before="Mage_Adminhtml">Auguria_ProductMatrix_Adminhtml</auguria_productmatrix>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+        <fieldsets>
+            <catalog_product_dataflow>
+                <auguria_active_matrix>
+                    <use_config>1</use_config>
+                </auguria_active_matrix>
+            </catalog_product_dataflow>
+        </fieldsets>
+    </admin>
+	
+	<adminhtml>
+	   <layout>
+            <updates>
+                <auguria_productmatrix>
+                    <file>auguria/product_matrix.xml</file>
+                </auguria_productmatrix>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Auguria_ProductMatrix>
+                    <files>
+                        <default>Auguria_ProductMatrix.csv</default>
+                    </files>
+                </Auguria_ProductMatrix>
+            </modules>
+        </translate>
+	</adminhtml>
+	
+	<default>
+	   <auguria_productmatrix>
+	       <general>
+	           <is_active>0</is_active>
+	           <template>auguria/productmatrix/catalog/product/matrix/inline.phtml</template>
+	       </general>
+	   </auguria_productmatrix>
+	</default>
+	
+	<!-- AUGURIA configuration -->
+	
+	<auguria>
+	   <productmatrix>
+	       <matrix>
+	           <templates translator="auguria_productmatrix">
+	               <inline>
+	                   <label>Inline template</label>
+	                   <value>auguria/productmatrix/catalog/product/matrix/inline.phtml</value>
+	               </inline>
+	               <condensed>
+                       <label>Condensed template</label>
+                       <value>auguria/productmatrix/catalog/product/matrix/condensed.phtml</value>
+                   </condensed>
+	           </templates>
+	       </matrix>
+	   </productmatrix>
+	</auguria>
+	
+</config>

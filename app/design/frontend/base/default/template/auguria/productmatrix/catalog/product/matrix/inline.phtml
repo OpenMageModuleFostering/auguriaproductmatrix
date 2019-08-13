@@ -1,0 +1,145 @@
+<?php
+/**
+ * @category   Auguria
+ * @package    Auguria_ProductMatrix
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+
+    /* @var Auguria_ProductMatrix_Block_Catalog_Product_Matrix */
+?>
+<?php
+    $matrixInformations = $this->getMatrixInformations();
+    $lastAttribute = end($matrixInformations);
+    $attributesCount = count($matrixInformations);
+    $labelCount = $attributesCount+2; // product name + reference
+    $childrenProducts = $this->getChildrenProducts(); // all declinable products
+    $tierPrice = $this->getProduct()->getTierPrice();
+?>
+
+<form action="<?php echo $this->getAddUrl() ?>" method="post" id="matrix_addtocart_form">
+
+    <table id="product-matrix" class="product-matrix data-table">
+        <caption><?php echo $this->__('Product matrix')?></caption>
+        <thead>
+            <tr>
+                <th><?php echo $this->__('Product name')?></th>
+                <th><?php echo $this->__('Reference')?></th>
+
+                <?php // Labels for all configurable attributes ?>
+                <?php foreach($matrixInformations as $_infos):?>
+                <th><?php echo $_infos['store_label']?></th>
+                <?php endforeach;?>
+
+                <th><?php echo $this->__('Unit price')?></th>
+                <th><?php echo $this->__('Total quantity')?></th>
+                <th><?php echo $this->__('Total')?></th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th colspan="<?php echo $labelCount-1 ?>"></th>
+                <th><?php echo $this->__('Total quantity')?></th>
+                <th></th><?php // unit price ?>
+                <?php // total quantity ?>
+                <th id="column-total-qty">0</th>
+                <?php // Total ?>
+                <th id="column-total-price"><?php echo Mage::app()->getStore()->formatPrice(0)?></th>
+            </tr>
+        </tfoot>
+        <tbody id="product-matrix-body"></tbody>
+    </table>
+
+    <div class="no-display">
+        <input type="hidden" name="product" value="<?php echo $this->getProduct()->getId() ?>" />
+        <input type="hidden" name="related_product" id="related-products-field" value="" />
+    </div>
+
+    <button class="button btn-cart" title="<?php echo $this->__('Add to Cart')?>" type="submit"><span><span><?php echo $this->__('Add to Cart')?></span></span></button>
+
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+
+var matrix = new Matrix({'basePrice': spConfig.config.basePrice, 'tierPrice': <?php echo Mage::helper('core')->jsonEncode($tierPrice)?>, 'taxConfig': spConfig.taxConfig});
+
+var matrixChildrenProducts = <?php echo Mage::helper('core')->jsonEncode($childrenProducts)?>; // children of the configurable product
+var matrixInformations = <?php echo Mage::helper('core')->jsonEncode($matrixInformations)?>; // configurable attributes informations
+
+// complete body table HTML
+for (var key in matrixChildrenProducts) { // each products
+	var product = matrixChildrenProducts[key];
+	var prices = [];
+
+    // build product row
+    var trElement = new Element('tr', {'class': 'productId-' + product.entity_id});
+
+    // name
+    var tdElement = new Element('td').update(product.name);
+    trElement.appendChild(tdElement);
+
+    // reference
+    var tdElement = new Element('td').update(product.sku);
+    trElement.appendChild(tdElement);
+
+	matrixInformations.each(function(attribute){ // each attributes filtered by position
+	    var positionInValues = attribute.matrix_option_id_to_position[[product[attribute.attribute_code]]];
+	    var option = attribute.values[positionInValues];
+
+	    var tdElement = new Element('td').update(option.store_label);
+
+	    // input configurable options values
+	    var inputElement = new Element('input', {'type': 'hidden', 'name': 'matrix_products[' + product.entity_id + '][super_attribute]['+ attribute.attribute_id +']', 'value': option.value_index});
+
+	    tdElement.appendChild(inputElement);
+	    trElement.appendChild(tdElement);
+
+	    // add option price to calcul final product price
+	    prices.push({'is_percent': option.is_percent, 'pricing_value': option.pricing_value});
+	});
+
+    // unit price
+    var finalPrice = matrix.loadPrice(product.entity_id, prices);
+    var tdElement = new Element('td', {'id': 'unit-price-'+product.entity_id}).update(matrix.formatPrice(finalPrice));
+    trElement.appendChild(tdElement);
+
+    matrix.addProductPrice(product.entity_id, finalPrice, prices); // add product price information to matrix
+
+    // total quantity
+    var tdElement = new Element('td');
+    // add qty input element
+	var inputElement = new Element('input', {'class': 'input-text qty', 'type': 'text', 'title': 'Qty', 'value': '0', 'maxlength': '12', 'name': 'matrix_products[' + product.entity_id + '][qty]', 'id': product.entity_id});
+	if(product.is_in_stock == false){
+	    inputElement.setAttribute('readonly', true);
+	    inputElement.addClassName('disabled');
+	}
+	tdElement.appendChild(inputElement);
+
+    trElement.appendChild(tdElement);
+
+    // Total
+    var tdElement = new Element('td', {'id': 'total-'+product.entity_id}).update(matrix.formatPrice('0.00'));
+    trElement.appendChild(tdElement);
+
+    // append row to body table
+    $('product-matrix-body').appendChild(trElement);
+}
+
+decorateTable('product-matrix');
+
+// update values when quantity is modified
+document.observe("dom:loaded", function() {
+    $$('#product-matrix input.qty').each(function(elem){
+    	var oldQty = 0;
+        elem.observe('focus', function(event){
+        	oldQty = this.value; //get old qty
+        });
+        elem.observe('change', function(event){
+            matrix.reload(this.id, this.value, oldQty); // reload product total, grand total, total qty
+        });
+    });
+});
+
+//]]>
+</script>

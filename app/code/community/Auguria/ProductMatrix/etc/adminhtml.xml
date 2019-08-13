@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_ProductMatrix
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+<config>
+	<acl>
+        <resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<auguria_productmatrix translate="title" module="auguria_productmatrix">
+										<title>Auguria product matrix</title>
+									</auguria_productmatrix>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

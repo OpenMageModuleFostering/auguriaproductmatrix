@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_Core
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+
+<layout>
+
+    <default>
+        <reference name="head">
+            <action method="addCss"><link>auguria/core.css</link></action>
+        </reference>
+    </default>
+
+</layout>

@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/auguriaproductmatrix",
+    "type": "magento-module",
+    "license": "GNU-General-Public-License",
+    "homepage": "",
+    "description": "Children products matrix of a configurable product on the product view page.",
+    "authors": [
+    {
+        "name": "Auguria",
+        "email": "magento@auguria.net"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   Auguria
+ * @package    Auguria_ProductMatrix
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+<layout version="0.1.0">
+
+    <PRODUCT_TYPE_configurable>
+        <reference name="head">
+            <action method="addJs"><link>auguria/productmatrix/matrix.js</link></action>
+            <action method="addCss"><link>css/auguria/productmatrix/matrix.css</link></action>
+        </reference>
+        <reference name="product.info.additional">
+            <block type="auguria_productmatrix/catalog_product_matrix" name="auguria.productmatrix.catalog.product.matrix">
+                <action method="setTemplate"><template helper="auguria_productmatrix/config/getMatrixTemplate" /></action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_configurable>
+
+ </layout>

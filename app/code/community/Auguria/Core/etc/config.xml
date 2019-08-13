@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_Core
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+<config>
+
+	<modules>
+		<Auguria_Core>
+			<version/>
+		</Auguria_Core>
+	</modules>
+	
+	<global>
+		<helpers>
+			<auguria_core>
+				<class>Auguria_Core_Helper</class>
+			</auguria_core>
+		</helpers>
+		<models>
+            <auguria_core>
+                <class>Auguria_Core_Model</class>
+            </auguria_core>
+		</models>
+	</global>
+	
+    <adminhtml>
+        <layout>
+            <updates>
+                <auguria_core>
+                    <file>auguria/core.xml</file>
+                </auguria_core>
+            </updates>
+        </layout>
+		<translate>
+            <modules>
+                <Auguria_Core>
+                    <files>
+                        <default>Auguria_Core.csv</default>
+                    </files>
+                </Auguria_Core>
+            </modules>
+        </translate>
+	</adminhtml>
+	
+</config>

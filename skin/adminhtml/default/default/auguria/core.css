@@ -1,0 +1,17 @@
+<!-- 
+/**
+ * @category   Auguria
+ * @package    Auguria_Core
+ * @author     Auguria
+ * @license    http://opensource.org/licenses/gpl-3.0.html GNU General Public License version 3 (GPLv3)
+ */
+ -->
+li.auguria-tab dl dt.label {
+	background: url('images/tab-header.png') no-repeat scroll 40px 6px #ffffff;
+	height: 28px;
+}
+h3.auguria-header {
+    background: url("images/section-header.png") no-repeat scroll 4px 12px transparent;
+    padding: 11px 0 2px 140px;
+    height: 19px;
+}
